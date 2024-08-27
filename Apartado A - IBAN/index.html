@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Módulo 11 - Expresiones regulares</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="contenedor">
+        <h2>Introduzca el IBAN</h2>
+        <input type="text" id="validar" name="validar" required />
+        <button type="submit" class="validar">Validar</button>
+        <div class="contenedor-mensajes">
+          <p class="bien-formado">El IBAN está bien formado</p>
+          <p class="válido">El IBAN es válido</p>
+          <p class="banco">Banco: BBVA</p>
+          <p class="código-sucursal">Código sucursal: 0000</p>
+          <p class="dígito-control">Dígito de control: 00</p>
+          <p class="número-cuenta">Número de cuenta: 0000000000</p>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./src/validar-iban.ts"></script>
+  </body>
+</html>
