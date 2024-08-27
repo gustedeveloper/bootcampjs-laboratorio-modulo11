@@ -1,16 +1,13 @@
 import "./style.css";
+import { obtenerInput, comprobarFormatoIBAN } from "./validar-iban.helper";
 
 const botonValidar = document.querySelector(".validar");
 
-const obtenerInput = () => {
-  let textoInput = "";
-  const inputValidar = document.getElementById("validar");
-  if (inputValidar && inputValidar instanceof HTMLInputElement) {
-    textoInput = inputValidar.value;
-  }
-  return textoInput;
+const validarIBAN = () => {
+  const iban = obtenerInput();
+  comprobarFormatoIBAN(iban);
 };
 
 if (botonValidar && botonValidar instanceof HTMLButtonElement) {
-  botonValidar.addEventListener("click", obtenerInput);
+  botonValidar.addEventListener("click", validarIBAN);
 }
