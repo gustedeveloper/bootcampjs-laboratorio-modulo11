@@ -1,4 +1,7 @@
+import { electronicFormatIBAN, isValidIBAN, validateIBAN } from "ibantools";
+
 const mensajeFormato = document.querySelector(".bien-formado");
+const mensajeValidez = document.querySelector(".valido");
 
 export const obtenerInput = () => {
   let textoInput = "";
@@ -21,6 +24,21 @@ export const comprobarFormatoIBAN = (iban: string) => {
       throw new Error("Formato de IBAN no válido");
     } else {
       mensajeFormato.innerText = "El IBAN está bien formado";
+    }
+  }
+};
+
+export const esIBANValido = (iban: string) => {
+  const ibanFormateado = electronicFormatIBAN(iban);
+  if (mensajeValidez && mensajeValidez instanceof HTMLParagraphElement) {
+    if (ibanFormateado) {
+      if (isValidIBAN(ibanFormateado)) {
+        mensajeValidez.innerText = "El IBAN es válido";
+      } else {
+        mensajeValidez.innerText = "El IBAN no es válido";
+        console.log(validateIBAN(iban));
+        throw new Error("El IBAN no es válido");
+      }
     }
   }
 };
