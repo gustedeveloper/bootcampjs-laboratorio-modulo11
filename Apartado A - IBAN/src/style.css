@@ -74,5 +74,5 @@ border-color: blue;
 .contenedor-mensajes > p {
   color: white;
   display: flex;
-  
+  height: 22px;
 }
