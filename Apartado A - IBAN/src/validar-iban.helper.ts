@@ -1,4 +1,4 @@
-import { electronicFormatIBAN, isValidIBAN, validateIBAN } from "ibantools";
+import { electronicFormatIBAN, isValidIBAN } from "ibantools";
 
 const mensajeFormato = document.querySelector(".bien-formado");
 const mensajeValidez = document.querySelector(".valido");
@@ -12,7 +12,7 @@ export const obtenerInput = () => {
   return textoInput;
 };
 
-export const comprobarFormatoIBAN = (iban: string) => {
+export const comprobarFormatoIBAN = (iban: string): string => {
   const regex =
     /^([A-Z]{2})(\d{2})[- ]?(\d{4})[- ]?(\d{4})[- ]?(\d{2})[- ]?(\d{10})$/;
 
@@ -21,24 +21,38 @@ export const comprobarFormatoIBAN = (iban: string) => {
   if (mensajeFormato && mensajeFormato instanceof HTMLParagraphElement) {
     if (!formatoValido) {
       mensajeFormato.innerText = "El IBAN no está bien formado";
-      throw new Error("Formato de IBAN no válido");
+      throw new Error("El formato de IBAN no es válido");
     } else {
       mensajeFormato.innerText = "El IBAN está bien formado";
     }
   }
+  if (!iban) {
+    throw new Error("No se ha introducido un IBAN válido");
+  }
+  return iban;
+};
+
+export const unificarIBAN = (iban: string): string => {
+  const ibanFormateado = electronicFormatIBAN(iban);
+  if (!ibanFormateado) {
+    throw new Error("No se ha introducido un IBAN válido");
+  }
+  return ibanFormateado;
 };
 
 export const esIBANValido = (iban: string) => {
-  const ibanFormateado = electronicFormatIBAN(iban);
   if (mensajeValidez && mensajeValidez instanceof HTMLParagraphElement) {
-    if (ibanFormateado) {
-      if (isValidIBAN(ibanFormateado)) {
-        mensajeValidez.innerText = "El IBAN es válido";
-      } else {
+    if (iban) {
+      if (!isValidIBAN(iban)) {
         mensajeValidez.innerText = "El IBAN no es válido";
-        console.log(validateIBAN(iban));
         throw new Error("El IBAN no es válido");
+      } else {
+        mensajeValidez.innerText = "El IBAN es válido";
       }
     }
   }
+  if (!iban) {
+    throw new Error("No se ha introducido un IBAN válido");
+  }
+  return iban;
 };

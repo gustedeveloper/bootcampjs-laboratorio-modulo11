@@ -3,16 +3,19 @@ import {
   obtenerInput,
   comprobarFormatoIBAN,
   esIBANValido,
+  unificarIBAN,
 } from "./validar-iban.helper";
 
 const botonValidar = document.querySelector(".validar");
 
-const comprobarIBAN = () => {
+const leerIBAN = () => {
   const iban = obtenerInput();
-  comprobarFormatoIBAN(iban);
-  esIBANValido(iban);
+  const ibanFormatoValido = comprobarFormatoIBAN(iban);
+  const ibanUnificado = unificarIBAN(ibanFormatoValido);
+  const ibanValido = esIBANValido(ibanUnificado);
+  console.log(ibanValido);
 };
 
 if (botonValidar && botonValidar instanceof HTMLButtonElement) {
-  botonValidar.addEventListener("click", comprobarIBAN);
+  botonValidar.addEventListener("click", leerIBAN);
 }
