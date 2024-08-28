@@ -3,6 +3,8 @@ import { electronicFormatIBAN, isValidIBAN } from "ibantools";
 const mensajeFormato = document.querySelector(".bien-formado");
 const mensajeValidez = document.querySelector(".valido");
 
+const patron = /^(ES)(\d{2})[- ]?(\d{4})[- ]?(\d{4})[- ]?(\d{2})[- ]?(\d{10})$/;
+
 export const obtenerInput = () => {
   let textoInput = "";
   const inputValidar = document.getElementById("validar");
@@ -13,10 +15,7 @@ export const obtenerInput = () => {
 };
 
 export const comprobarFormatoIBAN = (iban: string): string => {
-  const regex =
-    /^([A-Z]{2})(\d{2})[- ]?(\d{4})[- ]?(\d{4})[- ]?(\d{2})[- ]?(\d{10})$/;
-
-  const formatoValido = iban.match(regex);
+  const formatoValido = iban.match(patron);
 
   if (mensajeFormato && mensajeFormato instanceof HTMLParagraphElement) {
     if (!formatoValido) {
