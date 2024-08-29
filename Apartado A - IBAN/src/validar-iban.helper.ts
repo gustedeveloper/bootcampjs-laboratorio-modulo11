@@ -1,4 +1,5 @@
 import { electronicFormatIBAN, isValidIBAN } from "ibantools";
+import { InfoBanco } from "./validar-iban.model";
 
 const mensajeFormato = document.querySelector(".bien-formado");
 const mensajeValidez = document.querySelector(".valido");
@@ -56,3 +57,22 @@ export const esIBANValido = (iban: string) => {
   }
   return iban;
 };
+
+export const extraccionDatos = (iban: string) => {
+  const coincidencia = patron.exec(iban);
+  if (coincidencia) {
+    const { codigoDeBanco, codigoDeSucursal, digitoDeControl, numeroDeCuenta } =
+      coincidencia.groups as any;
+    const infoBanco: InfoBanco = {
+      codigoDeBanco: codigoDeBanco,
+      codigoDeSucursal: codigoDeSucursal,
+      digitoDeControl: digitoDeControl,
+      numeroDeCuenta: numeroDeCuenta,
+    };
+    return infoBanco;
+  } else {
+    throw new Error("Error al extraer datos");
+  }
+};
+
+// export const establecerBanco = (codigoDeBanco: string) => {};

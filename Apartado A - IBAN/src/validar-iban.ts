@@ -4,6 +4,7 @@ import {
   comprobarFormatoIBAN,
   esIBANValido,
   unificarIBAN,
+  extraccionDatos,
 } from "./validar-iban.helper";
 
 const botonValidar = document.querySelector(".validar");
@@ -13,7 +14,8 @@ const leerIBAN = () => {
   const ibanFormatoValido = comprobarFormatoIBAN(iban);
   const ibanUnificado = unificarIBAN(ibanFormatoValido);
   const ibanValido = esIBANValido(ibanUnificado);
-  console.log(ibanValido);
+  const infoBanco = extraccionDatos(ibanValido);
+  console.log(infoBanco);
 };
 
 if (botonValidar && botonValidar instanceof HTMLButtonElement) {
