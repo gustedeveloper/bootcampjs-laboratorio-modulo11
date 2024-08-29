@@ -5,7 +5,7 @@ const mensajeFormato = document.querySelector(".iban-bien-formado");
 const mensajeValidez = document.querySelector(".iban-valido");
 const bancoCodigo = document.querySelector(".codigo-banco");
 const sucursalCodigo = document.querySelector(".codigo-sucursal");
-//const digitoControl = document.querySelector(".digito-control");
+const digitoControl = document.querySelector(".digito-control");
 //const numeroCuenta = document.querySelector(".numero-cuenta");
 
 const patron =
@@ -93,5 +93,11 @@ export const establecerBanco = (codigoDeBanco: string) => {
 export const establecerSucursal = (codigoDeSucursal: string) => {
   if (sucursalCodigo && sucursalCodigo instanceof HTMLParagraphElement) {
     sucursalCodigo.innerText = `Código de sucursal: ${codigoDeSucursal}`;
+  }
+};
+
+export const establecerDigitoControl = (digitoDeControl: string) => {
+  if (digitoControl && digitoControl instanceof HTMLParagraphElement) {
+    digitoControl.innerText = `Dígito de control: ${digitoDeControl}`;
   }
 };

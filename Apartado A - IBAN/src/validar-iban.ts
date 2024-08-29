@@ -7,6 +7,7 @@ import {
   extraccionDatos,
   establecerBanco,
   establecerSucursal,
+  establecerDigitoControl,
 } from "./validar-iban.helper";
 
 const botonValidar = document.querySelector(".validar");
@@ -19,6 +20,7 @@ const leerIBAN = () => {
   const infoBanco = extraccionDatos(ibanValido);
   establecerBanco(infoBanco.codigoDeBanco);
   establecerSucursal(infoBanco.codigoDeSucursal);
+  establecerDigitoControl(infoBanco.digitoDeControl);
 };
 
 if (botonValidar && botonValidar instanceof HTMLButtonElement) {
