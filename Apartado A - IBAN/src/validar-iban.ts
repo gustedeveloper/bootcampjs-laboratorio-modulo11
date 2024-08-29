@@ -5,8 +5,9 @@ import {
   esIBANValido,
   unificarIBAN,
   extraccionDatos,
-  establecerDatosBanco,
 } from "./validar-iban.helper";
+
+import { establecerDatosBanco } from "./validar-iban.ui";
 
 const botonValidar = document.querySelector(".validar");
 

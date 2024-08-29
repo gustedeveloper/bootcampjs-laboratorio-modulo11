@@ -3,10 +3,6 @@ import { bancos, InfoBanco } from "./validar-iban.model";
 
 const mensajeFormato = document.querySelector(".iban-bien-formado");
 const mensajeValidez = document.querySelector(".iban-valido");
-const bancoCodigo = document.querySelector(".codigo-banco");
-const sucursalCodigo = document.querySelector(".codigo-sucursal");
-const digitoControl = document.querySelector(".digito-control");
-const numeroCuenta = document.querySelector(".numero-cuenta");
 
 const patron =
   /^(ES)(\d{2})[- ]?(?<codigoDeBanco>\d{4})[- ]?(?<codigoDeSucursal>\d{4})[- ]?(?<digitoDeControl>\d{2})[- ]?(?<numeroDeCuenta>\d{10})$/;
@@ -79,38 +75,11 @@ export const extraccionDatos = (iban: string): InfoBanco => {
   }
 };
 
-const establecerBanco = (codigoDeBanco: string) => {
-  if (bancoCodigo && bancoCodigo instanceof HTMLParagraphElement) {
-    const banco = bancos.find((banco) => banco.Código === codigoDeBanco);
-    if (banco) {
-      bancoCodigo.innerText = `Banco: ${banco.Nombre}`;
-    } else {
-      throw new Error("No se he encontrado el banco");
-    }
+export const encontrarBanco = (codigoDeBanco: string): string => {
+  const banco = bancos.find((banco) => banco.Código === codigoDeBanco);
+  if (!banco) {
+    throw new Error("No se he encontrado el banco");
+  } else {
+    return banco.Nombre;
   }
-};
-
-const establecerSucursal = (codigoDeSucursal: string): void => {
-  if (sucursalCodigo && sucursalCodigo instanceof HTMLParagraphElement) {
-    sucursalCodigo.innerText = `Código de sucursal: ${codigoDeSucursal}`;
-  }
-};
-
-const establecerDigitoControl = (digitoDeControl: string): void => {
-  if (digitoControl && digitoControl instanceof HTMLParagraphElement) {
-    digitoControl.innerText = `Dígito de control: ${digitoDeControl}`;
-  }
-};
-
-const establecerNumeroCuenta = (numeroDeCuenta: string): void => {
-  if (numeroCuenta && numeroCuenta instanceof HTMLParagraphElement) {
-    numeroCuenta.innerText = `Número de cuenta: ${numeroDeCuenta}`;
-  }
-};
-
-export const establecerDatosBanco = (infoBanco: InfoBanco): void => {
-  establecerBanco(infoBanco.codigoDeBanco);
-  establecerSucursal(infoBanco.codigoDeSucursal);
-  establecerDigitoControl(infoBanco.digitoDeControl);
-  establecerNumeroCuenta(infoBanco.numeroDeCuenta);
 };
