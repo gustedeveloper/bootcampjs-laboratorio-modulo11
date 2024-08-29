@@ -1,9 +1,12 @@
 import { electronicFormatIBAN, isValidIBAN } from "ibantools";
 import { bancos, InfoBanco } from "./validar-iban.model";
 
-const mensajeFormato = document.querySelector(".bien-formado");
-const mensajeValidez = document.querySelector(".valido");
-const bancoCodigo = document.querySelector(".banco");
+const mensajeFormato = document.querySelector(".iban-bien-formado");
+const mensajeValidez = document.querySelector(".iban-valido");
+const bancoCodigo = document.querySelector(".codigo-banco");
+const sucursalCodigo = document.querySelector(".codigo-sucursal");
+//const digitoControl = document.querySelector(".digito-control");
+//const numeroCuenta = document.querySelector(".numero-cuenta");
 
 const patron =
   /^(ES)(\d{2})[- ]?(?<codigoDeBanco>\d{4})[- ]?(?<codigoDeSucursal>\d{4})[- ]?(?<digitoDeControl>\d{2})[- ]?(?<numeroDeCuenta>\d{10})$/;
@@ -80,9 +83,15 @@ export const establecerBanco = (codigoDeBanco: string) => {
   if (bancoCodigo && bancoCodigo instanceof HTMLParagraphElement) {
     const banco = bancos.find((banco) => banco.Código === codigoDeBanco);
     if (banco) {
-      bancoCodigo.innerText = banco?.Nombre;
+      bancoCodigo.innerText = `Banco: ${banco.Nombre}`;
     } else {
       throw new Error("No se he encontrado el banco");
     }
+  }
+};
+
+export const establecerSucursal = (codigoDeSucursal: string) => {
+  if (sucursalCodigo && sucursalCodigo instanceof HTMLParagraphElement) {
+    sucursalCodigo.innerText = `Código de sucursal: ${codigoDeSucursal}`;
   }
 };
