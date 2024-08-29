@@ -3,7 +3,8 @@ import { electronicFormatIBAN, isValidIBAN } from "ibantools";
 const mensajeFormato = document.querySelector(".bien-formado");
 const mensajeValidez = document.querySelector(".valido");
 
-const patron = /^(ES)(\d{2})[- ]?(\d{4})[- ]?(\d{4})[- ]?(\d{2})[- ]?(\d{10})$/;
+const patron =
+  /^(ES)(\d{2})[- ]?(?<codigoDeBanco>\d{4})[- ]?(?<codigoDeSucursal>\d{4})[- ]?(?<digitoDeControl>\d{2})[- ]?(?<numeroDeCuenta>\d{10})$/;
 
 export const obtenerInput = () => {
   let textoInput = "";
