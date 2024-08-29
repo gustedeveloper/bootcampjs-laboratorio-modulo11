@@ -1,8 +1,9 @@
 import { electronicFormatIBAN, isValidIBAN } from "ibantools";
 import { bancos, InfoBanco } from "./validar-iban.model";
-
-const mensajeFormato = document.querySelector(".iban-bien-formado");
-const mensajeValidez = document.querySelector(".iban-valido");
+import {
+  establecerMensajeFormato,
+  establecerMensajeValidez,
+} from "./validar-iban.ui";
 
 const patron =
   /^(ES)(\d{2})[- ]?(?<codigoDeBanco>\d{4})[- ]?(?<codigoDeSucursal>\d{4})[- ]?(?<digitoDeControl>\d{2})[- ]?(?<numeroDeCuenta>\d{10})$/;
@@ -17,18 +18,12 @@ export const obtenerInput = (): string => {
 };
 
 export const comprobarFormatoIBAN = (iban: string): string => {
-  const formatoValido = iban.match(patron);
-
-  if (mensajeFormato && mensajeFormato instanceof HTMLParagraphElement) {
-    if (!formatoValido) {
-      mensajeFormato.innerText = "El IBAN no está bien formado";
-      throw new Error("El formato de IBAN no es válido");
-    } else {
-      mensajeFormato.innerText = "El IBAN está bien formado";
-    }
-  }
-  if (!iban) {
+  const formatoValidoIban = iban.match(patron);
+  if (!formatoValidoIban) {
+    establecerMensajeFormato(false);
     throw new Error("No se ha introducido un IBAN válido");
+  } else {
+    establecerMensajeFormato(true);
   }
   return iban;
 };
@@ -42,18 +37,11 @@ export const unificarIBAN = (iban: string): string => {
 };
 
 export const esIBANValido = (iban: string): string => {
-  if (mensajeValidez && mensajeValidez instanceof HTMLParagraphElement) {
-    if (iban) {
-      if (!isValidIBAN(iban)) {
-        mensajeValidez.innerText = "El IBAN no es válido";
-        throw new Error("El IBAN no es válido");
-      } else {
-        mensajeValidez.innerText = "El IBAN es válido";
-      }
-    }
-  }
-  if (!iban) {
-    throw new Error("No se ha introducido un IBAN válido");
+  if (!isValidIBAN(iban)) {
+    establecerMensajeValidez(false);
+    throw new Error("El IBAN no es válido");
+  } else {
+    establecerMensajeValidez(true);
   }
   return iban;
 };

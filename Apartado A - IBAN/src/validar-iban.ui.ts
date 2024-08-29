@@ -1,10 +1,28 @@
 import { encontrarBanco } from "./validar-iban.helper";
 import { InfoBanco } from "./validar-iban.model";
 
+const mensajeFormato = document.querySelector(".iban-bien-formado");
+const mensajeValidez = document.querySelector(".iban-valido");
 const bancoCodigo = document.querySelector(".codigo-banco");
 const sucursalCodigo = document.querySelector(".codigo-sucursal");
 const digitoControl = document.querySelector(".digito-control");
 const numeroCuenta = document.querySelector(".numero-cuenta");
+
+export const establecerMensajeFormato = (esValido: boolean): void => {
+  if (mensajeFormato && mensajeFormato instanceof HTMLParagraphElement) {
+    mensajeFormato.innerText = esValido
+      ? "El IBAN está bien formado"
+      : "El IBAN no está bien formado";
+  }
+};
+
+export const establecerMensajeValidez = (esValido: boolean): void => {
+  if (mensajeValidez && mensajeValidez instanceof HTMLParagraphElement) {
+    mensajeValidez.innerText = esValido
+      ? "El IBAN es válido"
+      : "El IBAN no es válido";
+  }
+};
 
 const establecerBanco = (codigoDeBanco: string): void => {
   if (bancoCodigo && bancoCodigo instanceof HTMLParagraphElement) {
