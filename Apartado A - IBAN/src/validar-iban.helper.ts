@@ -1,8 +1,9 @@
 import { electronicFormatIBAN, isValidIBAN } from "ibantools";
-import { InfoBanco } from "./validar-iban.model";
+import { bancos, InfoBanco } from "./validar-iban.model";
 
 const mensajeFormato = document.querySelector(".bien-formado");
 const mensajeValidez = document.querySelector(".valido");
+const bancoCodigo = document.querySelector(".banco");
 
 const patron =
   /^(ES)(\d{2})[- ]?(?<codigoDeBanco>\d{4})[- ]?(?<codigoDeSucursal>\d{4})[- ]?(?<digitoDeControl>\d{2})[- ]?(?<numeroDeCuenta>\d{10})$/;
@@ -75,4 +76,13 @@ export const extraccionDatos = (iban: string) => {
   }
 };
 
-// export const establecerBanco = (codigoDeBanco: string) => {};
+export const establecerBanco = (codigoDeBanco: string) => {
+  if (bancoCodigo && bancoCodigo instanceof HTMLParagraphElement) {
+    const banco = bancos.find((banco) => banco.Código === codigoDeBanco);
+    if (banco) {
+      bancoCodigo.innerText = banco?.Nombre;
+    } else {
+      throw new Error("No se he encontrado el banco");
+    }
+  }
+};
