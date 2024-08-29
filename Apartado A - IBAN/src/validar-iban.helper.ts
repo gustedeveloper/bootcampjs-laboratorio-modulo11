@@ -6,12 +6,12 @@ const mensajeValidez = document.querySelector(".iban-valido");
 const bancoCodigo = document.querySelector(".codigo-banco");
 const sucursalCodigo = document.querySelector(".codigo-sucursal");
 const digitoControl = document.querySelector(".digito-control");
-//const numeroCuenta = document.querySelector(".numero-cuenta");
+const numeroCuenta = document.querySelector(".numero-cuenta");
 
 const patron =
   /^(ES)(\d{2})[- ]?(?<codigoDeBanco>\d{4})[- ]?(?<codigoDeSucursal>\d{4})[- ]?(?<digitoDeControl>\d{2})[- ]?(?<numeroDeCuenta>\d{10})$/;
 
-export const obtenerInput = () => {
+export const obtenerInput = (): string => {
   let textoInput = "";
   const inputValidar = document.getElementById("validar");
   if (inputValidar && inputValidar instanceof HTMLInputElement) {
@@ -45,7 +45,7 @@ export const unificarIBAN = (iban: string): string => {
   return ibanFormateado;
 };
 
-export const esIBANValido = (iban: string) => {
+export const esIBANValido = (iban: string): string => {
   if (mensajeValidez && mensajeValidez instanceof HTMLParagraphElement) {
     if (iban) {
       if (!isValidIBAN(iban)) {
@@ -62,7 +62,7 @@ export const esIBANValido = (iban: string) => {
   return iban;
 };
 
-export const extraccionDatos = (iban: string) => {
+export const extraccionDatos = (iban: string): InfoBanco => {
   const coincidencia = patron.exec(iban);
   if (coincidencia) {
     const { codigoDeBanco, codigoDeSucursal, digitoDeControl, numeroDeCuenta } =
@@ -79,7 +79,7 @@ export const extraccionDatos = (iban: string) => {
   }
 };
 
-export const establecerBanco = (codigoDeBanco: string) => {
+const establecerBanco = (codigoDeBanco: string) => {
   if (bancoCodigo && bancoCodigo instanceof HTMLParagraphElement) {
     const banco = bancos.find((banco) => banco.Código === codigoDeBanco);
     if (banco) {
@@ -90,14 +90,27 @@ export const establecerBanco = (codigoDeBanco: string) => {
   }
 };
 
-export const establecerSucursal = (codigoDeSucursal: string) => {
+const establecerSucursal = (codigoDeSucursal: string): void => {
   if (sucursalCodigo && sucursalCodigo instanceof HTMLParagraphElement) {
     sucursalCodigo.innerText = `Código de sucursal: ${codigoDeSucursal}`;
   }
 };
 
-export const establecerDigitoControl = (digitoDeControl: string) => {
+const establecerDigitoControl = (digitoDeControl: string): void => {
   if (digitoControl && digitoControl instanceof HTMLParagraphElement) {
     digitoControl.innerText = `Dígito de control: ${digitoDeControl}`;
   }
+};
+
+const establecerNumeroCuenta = (numeroDeCuenta: string): void => {
+  if (numeroCuenta && numeroCuenta instanceof HTMLParagraphElement) {
+    numeroCuenta.innerText = `Número de cuenta: ${numeroDeCuenta}`;
+  }
+};
+
+export const establecerDatosBanco = (infoBanco: InfoBanco): void => {
+  establecerBanco(infoBanco.codigoDeBanco);
+  establecerSucursal(infoBanco.codigoDeSucursal);
+  establecerDigitoControl(infoBanco.digitoDeControl);
+  establecerNumeroCuenta(infoBanco.numeroDeCuenta);
 };
