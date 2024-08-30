@@ -1,11 +1,16 @@
-import { extraerEnlacesImagenes, obtenerInput } from "./extraccion-img.helper";
+import {
+  extraerEnlacesImagenes,
+  obtenerInput,
+  pintarImagenes,
+} from "./extraccion-img.helper";
 import "./style.css";
 
 const botonExtraerImagenes = document.querySelector(".extraer-imagenes");
 
 const extraerImagenes = () => {
   const texto = obtenerInput();
-  extraerEnlacesImagenes(texto);
+  const enlacesImagenes = extraerEnlacesImagenes(texto);
+  pintarImagenes(enlacesImagenes);
 };
 
 if (botonExtraerImagenes && botonExtraerImagenes instanceof HTMLButtonElement) {
