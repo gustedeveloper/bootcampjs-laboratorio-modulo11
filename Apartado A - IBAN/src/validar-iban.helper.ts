@@ -18,7 +18,7 @@ export const obtenerInput = (): string => {
 };
 
 export const comprobarFormatoIBAN = (iban: string): string => {
-  const formatoValidoIban = iban.match(patron);
+  const formatoValidoIban = patron.exec(iban);
   if (!formatoValidoIban) {
     establecerMensajeFormato(false);
     throw new Error("No se ha introducido un IBAN válido");
