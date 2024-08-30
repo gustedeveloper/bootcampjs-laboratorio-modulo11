@@ -16,3 +16,12 @@ export const extraerEnlacesImagenes = (texto: string) => {
   }
   return urlsImagenes;
 };
+
+const crearContenedorImagen = (url: string) => {
+  const divImagen = document.createElement("div");
+  divImagen.classList.add("contenedor-imagen");
+  divImagen.innerHTML = `
+    <img src="${url}">
+    `;
+  return divImagen;
+};
